@@ -19,9 +19,14 @@ public class DoRegisterDaoImpl implements DoRegisterDao{
 	public boolean judgeRegisterUser(User user) {
 	
 		try {
-			dumi.save(user);
+			if(dumi.find(user)) {
+				System.out.println("该手机已被注册,请更换");
+				return false;
+			}else{
+				dumi.save(user);
+			}
 		} catch (SQLException e) {
-			System.out.println("该手机已被注册,请更换");
+			System.out.println("服务器故障");
 			e.printStackTrace();
 		}
 		

@@ -38,4 +38,6 @@ public interface UserManageDao {
 	 * @throws SQLException
 	 */
 	User find(String account) throws SQLException;
+	
+	boolean find(User user) throws SQLException;
 }

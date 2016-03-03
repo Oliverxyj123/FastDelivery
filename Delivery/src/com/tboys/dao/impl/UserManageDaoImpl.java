@@ -89,4 +89,18 @@ public class UserManageDaoImpl implements UserManageDao{
 		result.close();
 		return n;
 	}
+	
+	@Override
+	public boolean find(User user) throws SQLException {
+		sql = "select * from users where account = ?";
+		state = conn.prepareStatement(sql);
+		state.setString(1, user.getAccout());
+		result = state.executeQuery();
+		if (result.next()) {
+			DbHelper.close(result, state, conn);
+			return true;
+		}
+		DbHelper.close(result, state, conn);
+		return false;
+	}
 }
