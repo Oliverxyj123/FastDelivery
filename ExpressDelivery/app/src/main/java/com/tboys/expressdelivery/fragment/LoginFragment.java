@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,18 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.tboys.expressdelivery.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -24,6 +35,8 @@ import com.tboys.expressdelivery.R;
  */
 public class LoginFragment extends Fragment {
 
+    private static final String PHONE = "phone";
+    private static final String PWD = "pwd";
     EditText editText_phone;
     EditText editText_password;
     CheckBox checkBox;
@@ -37,7 +50,7 @@ public class LoginFragment extends Fragment {
     int count = 0;
 
     public LoginFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -55,8 +68,6 @@ public class LoginFragment extends Fragment {
         adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item,
                 types);
         spinner_other_login_type.setAdapter(adapter);
-        String phoneNum = editText_phone.getText().toString();
-        String pwd = editText_password.getText().toString();
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -70,7 +81,38 @@ public class LoginFragment extends Fragment {
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String phoneNum = editText_phone.getText().toString();
+                String pwd = editText_password.getText().toString();
+                if (!phoneNum.isEmpty() && !pwd.isEmpty()) {
 
+                    String url = "http://192.168.43.138:8080/Delivery/LoginServlet";
+                    Volley.newRequestQueue(getActivity()).add(
+                            new StringRequest(
+                                    Request.Method.POST,
+                                    url,
+                                    new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String s) {
+                                            Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError volleyError) {
+
+                                    Toast.makeText(getActivity(), "登录失败", Toast.LENGTH_SHORT).show();
+                                }
+                            }) {
+                                @Override
+                                protected Map<String, String> getParams() throws AuthFailureError {
+                                    HashMap<String, String> map = new HashMap<>();
+                                    map.put(PHONE, editText_phone.getText().toString());
+                                    map.put(PWD, editText_password.getText().toString());
+                                    return map;
+                                }
+                            });
+                } else {
+                    Toast.makeText(getActivity(), "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -106,6 +148,4 @@ public class LoginFragment extends Fragment {
         });
         return view;
     }
-
-
 }
