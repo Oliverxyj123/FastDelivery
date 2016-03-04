@@ -64,24 +64,21 @@ public class DeliveryAdapter extends BaseAdapter {
         TextView textView_deliveryNum;
         TextView textView_deliveryCompany;
         TextView textView_deliveryTime;
-        TextView textView_deliveryContext;
 
 
         public DeliveryViewHolder(View view) {
             imageView = (ImageView) view.findViewById(R.id.imageView_company);
-            textView_deliveryNum = (TextView) view.findViewById(R.id.textView_delivery_dan);
-            textView_deliveryCompany = (TextView) view.findViewById(R.id.textView_delivery_company_name);
-            textView_deliveryTime = (TextView) view.findViewById(R.id.textView_delivery_time);
-            textView_deliveryContext = (TextView) view.findViewById(R.id.textView_delivery_context);
+            textView_deliveryNum = (TextView) view.findViewById(R.id.textView_deliveryNum);
+            textView_deliveryCompany = (TextView) view.findViewById(R.id.textView_deliveryCompany);
+            textView_deliveryTime = (TextView) view.findViewById(R.id.textView_deliveryTime);
         }
 
 
         public void bindData(Delivery delivery) {
-//            imageView.setImageBitmap(delivery.getBitmap_company());
+            imageView.setImageBitmap(delivery.getBitmap_company());
             textView_deliveryNum.setText(delivery.getDelivery_number());
             textView_deliveryCompany.setText(delivery.getDelivery_company());
             textView_deliveryTime.setText(delivery.getTime());
-            textView_deliveryContext.setText(delivery.getDelivery_context());
         }
     }
 }
