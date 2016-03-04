@@ -37,5 +37,30 @@ public class App {
     public static final String TYPE = "type";
 
     public static final String SORT_TYPE = "sort_type";
+
+
+    /**
+     * 应用id
+     */
+    public static final String APP_ID = "16007";
+    /**
+     * 密钥
+     */
+    public static final String APP_KEY = "1e7344f0df2f44af8c4bea4eb8ba3afe";
+
+    public static final String SHOWAPI_ID = "showapi_appid";
+    public static final String KEY_WORD = "showapi_sign";
+    public static final String SHOWAPI_TIME = "showapi_timestamp";
+
+    public static final String COM = "com";
+    public static final String NU = "nu";
+
+
+    /**
+     * 查询字段
+     */
+    public static final String ROADS = "roads";
+    public static final String COMPANY_NAME = "company_name";
+    public static final String DeLIVERY_DAN = "delivery_dan";
 }
 

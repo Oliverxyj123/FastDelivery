@@ -93,7 +93,16 @@ public class LoginFragment extends Fragment {
                                     new Response.Listener<String>() {
                                         @Override
                                         public void onResponse(String s) {
-                                            Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
+                                            if (s.equals("200")) {
+                                                Toast.makeText(getActivity(), "登录成功", Toast.LENGTH_SHORT).show();
+
+                                            } else if (s.equals("403")) {
+                                                Toast.makeText(getActivity(), "密码错误", Toast.LENGTH_SHORT).show();
+                                            } else if (s.equals("405")) {
+                                                Toast.makeText(getActivity(), "该手机未注册", Toast.LENGTH_SHORT).show();
+                                            }else{
+                                                Toast.makeText(getActivity(), "服务器故障", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
                                     }, new Response.ErrorListener() {
                                 @Override

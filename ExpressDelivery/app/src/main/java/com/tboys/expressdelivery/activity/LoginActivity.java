@@ -139,8 +139,17 @@ public class LoginActivity extends AppCompatActivity {
                                     public void onResponse(String s) {
                                         if (s.equals("200")) {
                                             Toast.makeText(LoginActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    registerFragment.editText_phone.setText("");
+                                                    registerFragment.editText_password.setText("");
+                                                }
+                                            });
                                         } else {
                                             Toast.makeText(LoginActivity.this, "该手机号已被注册", Toast.LENGTH_SHORT).show();
+                                            registerFragment.editText_phone.setText("");
+                                            registerFragment.editText_password.setText("");
                                         }
                                     }
                                 }, new Response.ErrorListener() {
